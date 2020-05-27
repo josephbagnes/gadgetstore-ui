@@ -1,0 +1,65 @@
+<div class="container">
+  <form class="form-inline my-2 my-lg-0 py-2" (ngSubmit)="onSearch()">
+    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="keyword" [ngModelOptions]="{standalone: true}">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <button class="btn btn-outline-danger my-2 my-sm-0 ml-2" type="button" (click)="refreshList()">Reset</button>
+  </form>
+  <div class="reglist">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Serial Number</th>
+          <th>Brand</th>
+          <th>Model</th>
+          <th>Price</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let gadget of gadgets">
+          <th scope="row">{{ gadget.id }}</th>
+          <td>{{ gadget.serialNumber }}</td>
+          <td>{{ gadget.brand }}</td>
+          <td>{{ gadget.model }}</td>
+          <td>{{ gadget.price }}</td>
+          <td align="right">
+            <button type="button" class="btn btn-info" (click)="onEdit(gadget.id)">Edit</button>
+          </td>
+          <td class="pull-left">
+            <button type="button" class="btn btn-danger" (click)="onDelete(gadget.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-right">
+      <button type="submit" class="btn btn-primary" (click)="onNew()">New</button>
+    </div>
+  </div>
+  <br>
+  <div class="regentry" *ngIf="showNew">
+    <form (ngSubmit)="onSave()">
+      <div class="form-group row">
+        <label for="brand-input" class="col-2 col-form-label">Brand</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="gadgetModel.brand" name="brand">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="model-input" class="col-2 col-form-label">Model</label>
+        <div class="col-10">
+          <input class="form-control" type="text" [(ngModel)]="gadgetModel.model" name="model">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="price-input" class="col-2 col-form-label">Price</label>
+        <div class="col-10">
+          <input class="form-control" type="number" [(ngModel)]="gadgetModel.price" name="price">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-success">{{submitType}}</button>
+      <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button>
+    </form>
+  </div>
+</div>
